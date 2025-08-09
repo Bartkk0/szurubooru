@@ -4,6 +4,7 @@ import math
 import re
 import shlex
 import subprocess
+import traceback
 from io import BytesIO
 from typing import List
 
@@ -89,6 +90,8 @@ class Image:
                 "1",
                 "-vcodec",
                 "png",
+                "-update",
+                "1",
                 "-",
             ]
         )
@@ -112,6 +115,8 @@ class Image:
                 "1",
                 "-vcodec",
                 "mjpeg",
+                "-update",
+                "1",
                 "-",
             ]
         )
@@ -264,6 +269,7 @@ class Image:
         ignore_error_if_data: bool = False,
         get_logs: bool = False,
     ) -> bytes:
+        traceback.print_stack()
         mime_type = mime.get_mime_type(self.content)
         if mime.is_heif(mime_type):
             # FFmpeg does not support HEIF.
