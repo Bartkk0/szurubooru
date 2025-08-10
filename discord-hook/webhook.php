@@ -7,6 +7,10 @@ $TOKEN = getenv("DISCORD_USER_TOKEN");
 $data = file_get_contents('php://input');
 $data = json_decode($data);
 
+if($data->operation != 'created' || $data->type != 'post'){
+    die(200);
+}
+
 $id = $data->id;
 
 $ch = curl_init("$BOORU_URL/api/post/$id");
